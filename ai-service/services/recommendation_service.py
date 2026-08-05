@@ -4,11 +4,12 @@ from models.donor_recommendation_model import (
     DonorRecommendationModel,
 )
 
+from utils.logger import logger
+
 
 class RecommendationService:
     def __init__(self):
         self.model = DonorRecommendationModel()
-
         self.model.load(
             "models/donor_recommendation.joblib"
         )
@@ -33,6 +34,11 @@ class RecommendationService:
         dataframe = dataframe.sort_values(
             "ai_score",
             ascending=False,
+        )
+
+        logger.info(
+            "Generated %s donor recommendations.",
+            len(dataframe),
         )
 
         return dataframe.to_dict("records")

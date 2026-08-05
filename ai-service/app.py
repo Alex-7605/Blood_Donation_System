@@ -1,14 +1,23 @@
 from fastapi import FastAPI
+
 from routers import health
 from routers import recommendations
 from routers import prediction
 from routers import fraud
 
+from utils.model_loader import model_loader
+
 app = FastAPI(
     title="Blood Donation AI Service",
     version="1.0.0",
-    description="Machine Learning Service for Blood Donation Management System",
+    description="Machine Learning Service",
 )
+
+
+@app.on_event("startup")
+async def startup():
+    model_loader.load_models()
+
 
 app.include_router(
     health.router,
@@ -40,5 +49,5 @@ def root():
     return {
         "service": "Blood Donation AI Service",
         "status": "running",
-        "version": "1.0.0",
+        "models_loaded": True,
     }

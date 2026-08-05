@@ -1,5 +1,9 @@
 from fastapi import APIRouter
 
+from utils.model_registry import (
+    registry,
+)
+
 router = APIRouter()
 
 
@@ -7,6 +11,5 @@ router = APIRouter()
 def health():
     return {
         "status": "healthy",
-        "model_loaded": False,
-        "service": "AI Service",
+        "models": registry.get_models(),
     }
