@@ -1,93 +1,110 @@
-<h1 align="center">Blood Donation Management System</h1>
+# Blood Donation Management System
 
-<p align="center">
-  <strong>Connecting donation workflows with practical, data-informed decision support.</strong>
+> A full-stack donation-management prototype that joins donor workflows, blood-bank operations, and ML-assisted decision support.
+
+<p>
+  <img src="https://img.shields.io/badge/Web-React_%2B_Vite-61DAFB?logo=react&logoColor=white" alt="React and Vite" />
+  <img src="https://img.shields.io/badge/API-Express-000000?logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/AI-FastAPI-009688?logo=fastapi&logoColor=white" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/Data-MongoDB-47A248?logo=mongodb&logoColor=white" alt="MongoDB" />
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Frontend-React_%2B_Vite-61DAFB?logo=react&logoColor=white" alt="React and Vite" />
-  <img src="https://img.shields.io/badge/API-Node.js-339933?logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/AI_Service-FastAPI-009688?logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikitlearn&logoColor=white" alt="scikit-learn" />
-</p>
+## At a glance
 
-A full-stack platform that brings together donor-facing workflows, blood-bank operations, and data-informed decision support. The application pairs a React client and Node.js server with a dedicated FastAPI service for donor recommendations, blood-demand prediction, and fraud detection.
+| For | The project provides |
+| --- | --- |
+| Donors | Registration and donation-oriented web flows |
+| Blood-bank staff | Donor, appointment, inventory, emergency-request, and notification modules |
+| Operations teams | Recommendation, demand-prediction, and fraud-analysis endpoints |
+| Developers | A separated React client, Express API, and FastAPI ML service |
 
-## Architecture
+## How it works
 
 ```mermaid
 flowchart LR
-    U[Users and staff] --> C[React client]
-    C --> S[Node.js API server]
-    S --> A[FastAPI AI service]
+    U[Donor or staff member] --> W[React web app]
+    W --> E[Express API]
+    E --> M[(MongoDB)]
+    E --> A[FastAPI decision-support service]
     A --> R[Donor recommendations]
     A --> D[Demand prediction]
-    A --> F[Fraud detection]
+    A --> F[Fraud analysis]
+    R --> W
+    D --> W
+    F --> W
 ```
 
-| Component | Technology | Responsibility |
-| --- | --- | --- |
-| Client | React, Vite | User interface and application flows |
-| API server | Node.js | Core application endpoints and service integration |
-| AI service | FastAPI, scikit-learn | Recommendations, predictions, and fraud analysis |
+The web app handles the user journey. The Express service owns the application's API and data-facing modules; it calls the FastAPI service only when a workflow needs model output. This separation keeps the core application and ML capabilities independently understandable and deployable.
 
-## Key capabilities
+## Main capabilities
 
-- Donor and blood-donation management workflows
-- ML-assisted donor recommendations
-- Blood-demand forecasting from training data
-- Fraud-detection checks exposed through the AI service
-- Interactive frontend visualisations and responsive UI components
-
-## Project flow
-
-1. Staff and donors use the web interface to manage donation-related workflows.
-2. The application server coordinates core requests and service calls.
-3. The AI service evaluates the relevant model and returns decision-support output.
-4. The interface presents the result as an actionable part of the workflow.
+- Authenticate users and present donor-focused web flows
+- Manage donors, donations, appointments, organisations, inventory, emergency requests, and notifications
+- Recommend donors for a request
+- Predict blood demand from the included training workflow
+- Screen inputs through a fraud-detection model
 
 ## Run locally
 
-Install dependencies and start each service in a separate terminal.
+**Prerequisites:** Node.js, Python 3, and a MongoDB instance.
+
+Start the three services in separate terminals.
 
 ```bash
-# Client
+# 1. Web client (usually http://localhost:5173)
 cd client
 npm install
 npm run dev
 ```
 
 ```bash
-# Core API
+# 2. Core API (usually http://localhost:5000)
 cd server
+```
+
+Create `server/.env` with your local MongoDB connection:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/blood-donation
+AI_SERVICE_URL=http://localhost:8000
+```
+
+```bash
 npm install
 npm run dev
 ```
 
 ```bash
-# AI service
+# 3. ML service (http://localhost:8000)
 cd ai-service
 python -m pip install -r requirements.txt
 uvicorn app:app --reload
 ```
 
-The AI API exposes interactive documentation at `http://localhost:8000/docs`. See [ai-service/README.md](ai-service/README.md) for training and health-check commands.
+Visit `http://localhost:8000/docs` for the ML service's interactive API documentation. The Express health check is available at `http://localhost:5000/health`.
 
-## Repository layout
+## Repository guide
 
 ```text
-client/       React/Vite web application
-server/       Node.js application server
-ai-service/   FastAPI models, training data, and prediction endpoints
+client/       React + Vite interface, routes, pages, and components
+server/       Express API and domain modules
+ai-service/   FastAPI routers, models, training scripts, and datasets
 ```
 
-## Notes
+| Area | Start here |
+| --- | --- |
+| Web routes | `client/src/routes/index.jsx` |
+| API composition | `server/app.js` |
+| Business modules | `server/modules/` |
+| ML API | `ai-service/app.py` |
+| Model training | `ai-service/train_all_models.py` |
 
-The included datasets and trained-model workflow are intended for project demonstration and development. Validate data quality, model performance, privacy requirements, and clinical/business rules before using the system in a production setting.
+## Development note
 
-## Roadmap
+The datasets and models are included for demonstration and development. Before any real-world or clinical use, validate model performance, data governance, privacy controls, security, and the applicable medical and operational policies.
 
-- Add end-to-end test coverage for the user journeys
-- Document API contracts and example requests
-- Add model-evaluation reports and monitoring guidance
-- Prepare a production deployment configuration with secure secret management
+## Next steps
+
+- Add end-to-end tests for the principal donor and staff journeys
+- Publish API examples and model-evaluation reports
+- Add deployment configuration and secure secret management for each service
