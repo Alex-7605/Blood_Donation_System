@@ -1,55 +1,71 @@
 import "./Hero.css";
 
-function Hero() {
-    return (
-        <section className="hero">
+function Hero(){
 
-            <div className="hero-content">
+return(
 
-                <span className="hero-tag">
-                    AI Powered Healthcare Platform
-                </span>
+<section className="hero">
 
-                <h1>
-                    Donate Blood,
-                    <br />
-                    Save Lives.
-                </h1>
+<div className="hero-content">
 
-                <p>
-                    Connect donors, hospitals, and blood
-                    banks through an intelligent platform
-                    powered by Artificial Intelligence,
-                    real-time analytics, and emergency
-                    response systems.
-                </p>
+<span className="hero-tag">
 
-                <div className="hero-buttons">
+AI Powered Blood Donation Platform
 
-                    <button className="primary-btn">
-                        Become a Donor
-                    </button>
+</span>
 
-                    <button className="secondary-btn">
-                        Request Blood
-                    </button>
+<h1>
 
-                </div>
+Connecting Donors,
 
-            </div>
+Hospitals
 
-            <div className="hero-image">
+and Lives.
 
-                <div className="blood-circle">
+</h1>
 
-                    ❤️
+<p>
 
-                </div>
+An intelligent blood donation ecosystem
+designed to save lives faster using
+Artificial Intelligence, predictive
+analytics and secure healthcare
+technology.
 
-            </div>
+</p>
 
-        </section>
-    );
+<div className="hero-buttons">
+
+<button className="primary-btn">
+
+Become a Donor
+
+</button>
+
+<button className="secondary-btn">
+
+Find Blood
+
+</button>
+
+</div>
+
+</div>
+
+<div className="hero-image">
+
+<div className="blood-circle">
+
+🩸
+
+</div>
+
+</div>
+
+</section>
+
+)
+
 }
 
 export default Hero;
