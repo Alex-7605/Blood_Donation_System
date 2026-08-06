@@ -26,7 +26,7 @@ router.get(
 router.get(
     "/predict-demand",
     authorize(Roles.ADMIN),
-    AIController.predictBloodDemand
+    AIController.predictDemand
 );
 
 router.post(

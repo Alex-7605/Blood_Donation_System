@@ -1,9 +1,10 @@
 import subprocess
+import sys
 
 TRAINERS = [
-    "training/train_donor_model.py",
-    "training/train_blood_demand_model.py",
-    "training/train_fraud_detection_model.py",
+    "training.train_donor_model",
+    "training.train_blood_demand_model",
+    "training.train_fraud_detection_model",
 ]
 
 
@@ -13,7 +14,8 @@ def main():
 
         subprocess.run(
             [
-                "python",
+                sys.executable,
+                "-m",
                 trainer,
             ],
             check=True,
