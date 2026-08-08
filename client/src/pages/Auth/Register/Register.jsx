@@ -1,32 +1,133 @@
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import AuthLayout from "../../../components/Auth/AuthLayout";
+
+import AuthService from "../../../services/authService";
+
+import { useAuth } from "../../../context/AuthContext";
 
 import "./Register.css";
 
-function Register(){
+function Register() {
 
-return(
+    const navigate = useNavigate();
+
+    const { role } = useParams();
+
+    const { loading, setLoading } = useAuth();
+
+    const [form, setForm] = useState({
+
+        firstName: "",
+
+        lastName: "",
+
+        email: "",
+
+        phone: "",
+
+        password: "",
+
+        confirmPassword: "",
+
+    });
+
+    function handleChange(e){
+
+        setForm({
+
+            ...form,
+
+            [e.target.name]:e.target.value
+
+        });
+
+    }
+
+    async function handleSubmit(e){
+
+        e.preventDefault();
+
+        if(form.password!==form.confirmPassword){
+
+            alert("Passwords do not match.");
+
+            return;
+
+        }
+
+        try{
+
+            setLoading(true);
+
+            const payload={
+
+                firstName:form.firstName,
+
+                lastName:form.lastName,
+
+                email:form.email,
+
+                phone:form.phone,
+
+                password:form.password,
+
+                role
+
+            };
+
+            console.log(payload);
+
+            // We'll connect the API in the next step.
+
+        }
+
+        finally{
+
+            setLoading(false);
+
+        }
+
+    }
+
+    return(
 
 <AuthLayout
-
-title="Create Account"
-
-subtitle="Register to become part of the BloodConnect network."
-
+title={`Register as ${role}`}
+subtitle="Create your BloodConnect account."
 >
 
-<form>
+<form onSubmit={handleSubmit}>
 
 <div className="form-group">
 
 <label>
 
-Full Name
+First Name
 
 </label>
 
 <input
-type="text"
-placeholder="Full Name"
+name="firstName"
+value={form.firstName}
+onChange={handleChange}
+/>
+
+</div>
+
+<div className="form-group">
+
+<label>
+
+Last Name
+
+</label>
+
+<input
+name="lastName"
+value={form.lastName}
+onChange={handleChange}
 />
 
 </div>
@@ -41,7 +142,25 @@ Email
 
 <input
 type="email"
-placeholder="Email"
+name="email"
+value={form.email}
+onChange={handleChange}
+/>
+
+</div>
+
+<div className="form-group">
+
+<label>
+
+Phone
+
+</label>
+
+<input
+name="phone"
+value={form.phone}
+onChange={handleChange}
 />
 
 </div>
@@ -56,15 +175,49 @@ Password
 
 <input
 type="password"
-placeholder="Password"
+name="password"
+value={form.password}
+onChange={handleChange}
+/>
+
+</div>
+
+<div className="form-group">
+
+<label>
+
+Confirm Password
+
+</label>
+
+<input
+type="password"
+name="confirmPassword"
+value={form.confirmPassword}
+onChange={handleChange}
 />
 
 </div>
 
 <button
-className="register-btn">
+className="register-btn"
+type="submit"
+disabled={loading}
+>
 
-Continue
+{
+
+loading
+
+?
+
+"Creating Account..."
+
+:
+
+"Register"
+
+}
 
 </button>
 

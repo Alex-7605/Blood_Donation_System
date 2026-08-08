@@ -1,53 +1,3 @@
-.register-page{
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-background:#F8FAFC;
-
-padding:40px;
-
-}
-
-.register-card{
-
-width:520px;
-
-background:white;
-
-padding:45px;
-
-border-radius:20px;
-
-box-shadow:var(--shadow);
-
-}
-
-.register-card h1{
-
-font-size:34px;
-
-margin-bottom:15px;
-
-color:#0F172A;
-
-}
-
-.register-card p{
-
-margin-bottom:35px;
-
-color:#64748B;
-
-line-height:1.8;
-
-}
-
 .register-btn{
 
 margin-top:20px;
@@ -69,5 +19,13 @@ font-size:17px;
 font-weight:600;
 
 cursor:pointer;
+
+transition:.3s;
+
+}
+
+.register-btn:hover{
+
+background:#B91C1C;
 
 }
